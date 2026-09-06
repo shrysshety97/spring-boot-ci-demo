@@ -8,6 +8,6 @@ public class helloApp {
 	
 	@GetMapping("/hello")
 	public String Hello() {
-		return "Hello from CI/CD";
+		return "Hello from CI/CD Pipeline>>>>😁😁";
 	}
 }
