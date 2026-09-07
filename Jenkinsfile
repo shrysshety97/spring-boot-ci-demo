@@ -1,4 +1,5 @@
 pipeline {
+
     agent any
 
     environment {
@@ -10,8 +11,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/shrysshety97/spring-boot-ci-demo.git'
+                checkout scm
             }
         }
 
@@ -60,7 +60,9 @@ pipeline {
 
         stage('Deploy to EC2') {
             steps {
+
                 sshagent(['ec2-ssh']) {
+
                     sh '''
                         ssh -o StrictHostKeyChecking=no \
                             ec2-user@$EC2_HOST "
@@ -78,12 +80,13 @@ pipeline {
     }
 
     post {
+
         success {
-            echo 'Deployment successful!'
+            echo 'CI/CD Pipeline Successful!'
         }
 
         failure {
-            echo 'Deployment failed!'
+            echo 'CI/CD Pipeline Failed!'
         }
     }
 }
